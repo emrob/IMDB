@@ -14,17 +14,17 @@ class MovieStar
   def save()
     sql = "INSERT INTO movie_star (first_name, last_name) VALUES ($1, $2) RETURNING id"
     values = [@first_name, @last_name]
-    movie_star = SqlRunner.run( sql, values)
-    # @id = movie_star['id'].to_i
+    movie_star = SqlRunner.run( sql, values)[0]
+    @id = movie_star['id'].to_i
 
   end
 
   def movie()
-    sql = "SELECT movie.* FROM movie INNER JOIN casting ON movie.id = casting.movie_id WHERE casting.movie_star_id = $1"
+    sql = "SELECT * FROM movie INNER JOIN casting ON movie.id = casting.movie_id WHERE movie_star_id = $1"
     values = [@id]
     casting = SqlRunner.run(sql, values)
     return casting.map {|cast| Movie.new(cast)}
-    
+
 
   end
 

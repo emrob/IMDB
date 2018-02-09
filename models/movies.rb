@@ -20,6 +20,13 @@ movie = SqlRunner.run(sql, values).first
 @id = movie['id'].to_i
 end
 
+# def update()
+#   sql = "UPDATE movie SET title = $1 WHERE id = $2"
+#   values = [@title, @genre, ]
+#   SqlRunner.run(sql, values)
+#
+# end
+
 def self.all()
   sql = "SELECT * FROM movie"
   values = []
